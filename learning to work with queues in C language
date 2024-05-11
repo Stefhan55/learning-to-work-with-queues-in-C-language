@@ -1,0 +1,90 @@
+//Esse codigo simula a criação de filas em linguagem C
+//This code simulates the creation of queues in C language
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+#define Tamanho 3
+
+struct tipo_fila {
+    int dados[Tamanho];
+    int inicio;
+    int fim;
+};
+
+struct tipo_fila fila;
+
+void inicializar_fila() {
+    fila.inicio = 0;
+    fila.fim = 0;
+}
+
+void push_back(int elemento) {
+    if (fila.fim == Tamanho) {
+        printf("\n\tFila cheia.\n\t");
+    } else {
+        fila.dados[fila.fim] = elemento;
+        fila.fim++;
+    }
+}
+
+int pop() {
+    int elemento;
+    if (fila.fim == fila.inicio) {
+        printf("\n\tFila vazia.\n\t");
+        return -1; // Retorna um valor inválido quando a fila estiver vazia
+    } else {
+        elemento = fila.dados[fila.inicio];
+        fila.inicio++;1
+        return elemento;
+    }
+}
+
+void mostrar_fila() {
+    printf("\n\tFila: ");
+    if (fila.inicio == fila.fim) {
+        printf("vazia\n\t");
+    } else {
+        for (int i = fila.inicio; i < fila.fim; i++) {
+            printf("%d ", fila.dados[i]);
+        }
+        printf("\n\t");
+    }
+}
+
+int main() {
+    setlocale(LC_ALL, "");
+    inicializar_fila();
+    int opcao, elemento;
+
+    do {
+        printf("\n\t     Selecione uma Opção:\n\t");
+        printf("\n\t 1 - Adicionar elemento na fila\n\t");
+        printf("\n\t 2 - Remover elemento da fila\n\t");
+        printf("\n\t 0 - Sair\n\t");
+        printf("\n\t     Opção:\n\t ");
+        scanf("%d", &opcao);
+
+        switch (opcao) {
+            case 1:
+                printf("\n\tDigite o elemento a ser adicionado na fila:\n\t ");
+                scanf("%d", &elemento);
+                push_back(elemento);
+                break;
+            case 2:
+                elemento = pop();
+                if (elemento != -1)
+                    printf("\n\tElemento removido: %d\n\t", elemento);
+                break;
+            case 0:
+                printf("\n\tSaindo...\n\t");
+                break;
+            default:
+                printf("\n\tOpção inválida!\n\t");
+                break;
+        }
+        
+        mostrar_fila(); // Mostrar a fila após cada operação
+    } while (opcao != 0);
+
+    return 0;
+}
